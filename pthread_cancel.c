@@ -5,15 +5,33 @@ pthread_t pthread_tt;
 
 void *thread1(void *arg) 
 {
+#if 1
+	 pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);           //允许退出线程   
+	 pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS,   NULL);   //设置立即取消
+#endif
+
+#if 0
+	 pthread_setcancelstate(PTHREAD_CANCEL_DISABLE, NULL);           //bu允许退出线程   
+	 pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS,   NULL);   //设置立即取消
+#endif
+
+#if 0
+	 pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);           //允许退出线程   
+	 pthread_setcanceltype(PTHREAD_CANCEL_DEFERRED, NULL);   //next cancel point
+#endif
 	printf("hello world!\n");
 	/* void pthread_exit( void * value_ptr ); 线程的终止可以是调用了pthread_exit或者该线程的例程结束。也就是说,一个线程可以隐式的退出,也可以显式的调用pthread_exit函	  数来退出。*/
 	while(1)
         {	
+		  pthread_testcancel();  
+	printf("fsadfasdfasfasf\n");
 		  /* ，只有在被取消线程下次系统调用时，才会真正结束线程。如果线程里面没有执行系统调用，可以使用pthread_testcancel解决 now end  not to down*/
+		  pthread_testcancel();  
+	printf("fsadfasdfasfasf\n");
 		  pthread_testcancel();  
 	}
 
-//	printf("byebye world!\n");
+	printf("byebye world!\n");
 
 }
 
